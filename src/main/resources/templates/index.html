@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>USER MANAGEMENT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href= 
+"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+          rel="stylesheet"> 
+    
+    <!-- Font Awesome -->
+    
+    <link href= 
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+          rel="stylesheet"> 
+     <!-- Bootstrap Bundle with Popper -->
+    <script src= 
+"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"> 
+    </script>
+
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif; /* Use Roboto as the primary font */
+        font-weight: 400; /* Regular font weight */
+        line-height: 1.6; /* Improved readability */
+        background-color: #ffffff;
+        color: #333; /* Adjust text color for readability */
+        margin: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+        font-weight: 700; /* Bold font weight */
+    }
+
+    .marquee {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+    }
+
+    /* Make the top header sticky */
+    .sticky-top {
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Ensure it stays on top of other content */
+    }
+
+    /* Adjust navbar padding for smooth scrolling */
+    .navbar {
+        background: linear-gradient(to right, #6a0dad, #e75480) !important; /* Background gradient */
+        padding: .5rem 1rem;
+        color: white; /* Text color for navbar items */
+    }
+
+    .navbar-brand {
+        color: white !important; /* Color for the brand/logo text */
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important; /* Color for navbar links */
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-height: 300px; /* Adjust the maximum height as needed */
+        overflow: hidden;
+
+    }
+
+    .carousel-inner img {
+        object-fit: cover;
+        height: 100%;
+        max-height: 300px; /* Ensures the images do not exceed the container height */
+        /* Initial scale */
+          /* Smooth transition */
+    }
+
+
+
+    /* Floating effect */
+    .carousel-inner img:hover {
+        transform: scale(1.05); /* Slightly enlarge the image */
+
+    }
+
+
+    .about-section {
+        background-color: #f8f9fa;
+        padding: 40px 20px;
+        text-align: center;
+        margin-top:0px;
+        font-family: 'Montserrat', sans-serif; /* Apply a cool font */
+        font-weight: bold; /* Make the font bold */
+    }
+
+    .about-section img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    /* Styling for What We Offer Section */
+    .course-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .course-item img {
+        height: 200px;
+        width: 100%;
+    }
+
+    .course-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .course-item .card-img-top {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .course-item .card-body {
+        background: #e75480;; /* Gradient background */
+        padding: 1.5rem;
+    }
+
+    .testimonial-item {
+        background: linear-gradient(to right, #6a0dad, #e75480); /* Dark pink background */
+        color: #fff; /* White text */
+        border: 2px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 300px; /* Fixed height */
+        width: 700px;
+        overflow: hidden; /* Hide overflow to contain testimonial items */
+        display: flex; /* Use flexbox for centering */
+        align-items: center; /* Center items vertically */
+        justify-content: center; /* Center items horizontally */
+        text-align: center;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box-shadow for popping effect */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+    }
+
+    .testimonial-item:hover {
+        transform: translateY(-5px); /* Popping effect on hover */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+    }
+
+    .testimonial-item .card {
+        background-color: inherit; /* Inherit background color from container */
+        border: none; /* Remove border */
+        padding: 20px; /* Add padding */
+        text-align: center;
+    }
+
+    .testimonial-image img {
+        margin-top: 10px;
+        width: 150px; /* Adjust image size as needed */
+        height: 150px;
+        border-radius: 50%; /* Ensure round image */
+        margin: 0 auto; /* Center align image */
+    }
+
+    .testimonial-text {
+        margin-top: 10px;
+    }
+
+    .testimonial-details {
+        margin-top: 10px;
+    }
+
+    @keyframes slideInFromRight {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .slide-in {
+        animation: slideInFromRight 1s ease;
+    }
+
+    /* Event Items Section */
+    .event-item {
+        position: relative;
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box-shadow */
+        overflow: hidden; /* Hide overflow to contain children */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+        background: linear-gradient(135deg, #6a0dad, #e75480); /* Gradient background */
+        width: 100%; /* Occupy full width of parent */
+    }
+
+    .event-item:hover {
+        transform: translateY(-5px); /* Popping effect on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+    }
+
+    .event-item .card-img-top {
+        height: auto; /* Adjust height to maintain aspect ratio */
+        width: 100%; /* Occupy full width of parent */
+        object-fit: cover; /* Maintain aspect ratio and cover the entire area */
+    }
+
+    .event-item .card-body {
+        padding: 20px;
+    }
+
+    /* Fading background effect for event items */
+    @keyframes fadeInBackground {
+        0% {
+            background: #6a0dad;
+        }
+        100% {
+            background: #e75480;
+        }
+    }
+
+    .event-item {
+        animation: fadeInBackground 1s ease-in-out;
+    }
+
+    .form-floating-label {
+        position: relative;
+    }
+
+
+    .form-floating-label input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #6a0dad, #e75480); /* Gradient background */
+    }
+
+    .form-floating-label label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        transition: all 0.2s ease-in-out;
+        pointer-events: none;
+        color: #aaa;
+    }
+
+    .form-floating-label input:focus + label,
+    .form-floating-label input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 10px;
+        font-size: 12px;
+        color: #3498db;
+        background: white;
+        padding: 0 5px;
+    }
+
+    /* Inquiry Form */
+        .inquiry-form {
+            background-color: #e75480; /* Dark background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #ffffff; /* White font color */
+            font-weight: bold;
+            margin-left: 20px; /* Shift the form to the right */
+        }
+
+
+
+
+
+    .profile-button {
+        margin-top: 20px;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button i {
+        margin-right: 10px;
+    }
+    .bg-gradient-dark-pink {
+        background: linear-gradient(to right, #6a0dad, #e75480);
+    }
+/* Custom dark purple button */
+        .btn-purple {
+            background-color: #6a0dad;
+            border-color: #6a0dad;
+            color: #fff;
+        }
+        .btn-purple:hover {
+            background-color: #510c87;
+            border-color: #510c87;
+        }
+        .btn-purple:focus,
+        .btn-purple.focus {
+            box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.5);
+        }
+        .social-icon,
+
+  .footer {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* White text color */
+    padding: 20px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+    min-width: 150px;
+}
+
+.footer h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer ul li a {
+    color: #bbb; /* Lighter text color */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer ul li a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left:40px;
+}
+
+.social-icons a {
+    color: #bbb;
+    font-size: 18px;
+    margin-left: 40px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #fff;
+}
+
+.footer-logo {
+    width: 120px;
+    margin-top: 50px;
+    margin_right:200px;
+}
+
+.footer-copy {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #bbb;
+}
+.footer-section.contact-section {
+    flex: 1;
+    min-width: 300px; /* Increased from 150px to 200px */
+    max-width: 400px; /* Added a maximum width */
+
+}
+.footer .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #bbb;
+
+}
+
+.footer .contact-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer .contact-item ion-icon {
+    margin-right: 20px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.footer .contact-item a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.footer .contact-item a:hover {
+    color: #fff;
+}.para{
+background: linear-gradient(to right, #6a0dad, #e75480) !important;
+text-align:center;
+color: white;
+padding:10px;
+
+
+
+}
+
+</style>
+
+
+
+</head>
+<body>
+<div class="container-fluid bg-gradient-dark-pink text-white py-2 d-flex justify-content-between align-items-center sticky-top">
+    <a class="navbar-brand text-white" href="#">
+        <img src="/images/logo.png" alt="Logo" width="150" height="30" class="d-inline-block align-text-top">
+    </a>
+
+    <!-- Start: Submenu Options -->
+    <div class="d-flex">
+        <a class="nav-link text-white me-3" href="/">Home</a>
+        <!-- <a class="nav-link text-white me-3" href="Gallery">Gallery</a>-->
+        <!-- <a class="nav-link text-white me-3" href="OurCentres">Our Centres</a>-->
+        <!-- <a class="nav-link text-white me-3" href="Events">Events</a>-->
+        <a class="nav-link text-white me-3" href="Courses">Courses</a>
+        <a class="nav-link text-white" href="Contact">Contact</a>
+    </div>
+    <!-- End: Submenu Options -->
+
+    <!-- Conditional Button -->
+    <div>
+        <a class="btn btn-outline-light" th:if="${session.username == null}" href="/userlogin" role="button">Login</a>
+        <a class="btn btn-outline-light" th:if="${session.username != null}" th:href="@{/UserDashBoard(userId=${session.userId}, username=${session.username})}" role="button">Dashboard</a>
+
+        <a class="btn btn-outline-light" th:if="${session.username != null}" href="/logout" role="button">Logout</a>
+    </div>
+</div>
+
+<div class="bg-dark text-white py-1 marquee">
+    <span>Welcome to Dynamic Infotech! Stay tuned for updates and events! &nbsp;&nbsp;&nbsp;&nbsp; Helping Coding Enthusiasts Achieve There Career Goals!</span>
+</div>
+
+<div class="carousel-container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div th:each="item, iterStat : ${galleryItems}" th:classappend="${iterStat.index == 0} ? 'carousel-item active' : 'carousel-item'">
+                <img th:src="@{${item.imageUrl}}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- About Section -->
+<div class="about-section">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="about-text p-5">
+                    <h2>About Us</h2>
+                    <p>
+                        Welcome Dynamic Infotech Solutions, where knowledge meets accessibility!
+                        Our team of seasoned corporate trainers, with over 20 years of industry experience,
+                        is dedicated to delivering effective and engaging education.
+                        Whether you're a non-technical student eager to dive into IT or a CS/IT student seeking practical skills,
+                        our courses in major programming languages like C, C++, Java, and Python are tailored to kickstart your career.
+                        Join us to transform your learning experience and gain the skills you need for success!
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 px-0">
+                <div class="about-image" style="background-image: url('/images/student.png'); height: 100vh; background-size: cover; background-position: center;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Courses Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">COURSES:</h2>
+    <div class="row" id="courseItemsRow">
+        <!-- Course Item -->
+        <div class="col-md-4 mb-4" th:each="course: ${courseItems}" >
+            <div class="course-item card">
+                <img th:src="@{${course.imageUrl}}" class="card-img-top" alt="Course Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${course.text}"></h5>
+                    <a href="Courses" class="btn btn-purple btn-lg">Know More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Event Items Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">EVENT ITEMS:</h2>
+    <div class="row" id="eventItemsRow">
+        <!-- Event Item -->
+        <div class="col-md-4 mb-4" th:each="eventItem : ${eventItems}">
+            <div class="event-item card" style="background-color:  #6a0dad; border-color: #6a0dad;">
+                <img th:src="@{${eventItem.imageUrl}}" class="card-img-top" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;"><strong>Date:</strong> <span th:text="${eventItem.date}"></span></h5>
+                    <p class="card-text"><strong>Location:</strong> <span th:text="${eventItem.location}"></span></p>
+                    <p class="card-text"><strong>Details:</strong> <span th:text="${eventItem.text}"></span></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Testimonials Section --><!--
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Testimonials</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div id="testimonialContainer" class="testimonial-container">
+
+            </div>
+        </div>
+    </div>
+</div>  -->
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section logo-section">
+            <img src="/images/footer logo.png" alt="Dynamic Classes Logo" class="footer-logo">
+        </div>
+
+        <div class="footer-section get-started-section">
+            <h3>Get Started</h3>
+            <hr style="width: 110px;height:2px; color:#de127b">
+            <ul class="menu">
+                <li class="menu__item"><a class="menu__link" href="Contact">Get In Touch</a></li>
+                <li class="menu__item"><a class="menu__link" href="UserRegistration">Register</a></li>
+                <li class="menu__item"><a class="menu__link" href="/userlogin">Login</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section about-us-section">
+            <h3>About Us</h3>
+            <hr style="width: 110px;height:2px; color:#de127b">
+            <ul class="menu">
+                <li class="menu__item"><a class="menu__link" href="/">Home</a></li>
+                <li class="menu__item"><a class="menu__link" href="Contact">Get In Touch</a></li>
+                <li class="menu__item"><a class="menu__link" href="terms">Terms&Condition</a></li>
+            </ul>
+        </div>
+
+        <!-- New Contact Section -->
+        <div class="footer-section contact-section" >
+            <h3>Contact Us</h3>
+            <hr style="width: 110px;height:2px; color:#de127b">
+            <ul class="contact-list">
+                <li class="contact-item">
+                    <ion-icon name="call-outline" style="font-size: 15px; color: white;"></ion-icon> 98605 65670
+                </li>
+                <li class="contact-item">
+                    <ion-icon name="mail-outline" style="font-size: 17px; color: white;"></ion-icon> <a href="mailto: dynamiccoachingclasses11@gmail.com"> dynamiccoachingclasses11@gmail.com</a>                    </li>
+                <li class="contact-item">
+                    <ion-icon name="location-outline" style="font-size: 30px; color: white;"></ion-icon> <a href="https://maps.app.goo.gl/bQdG2MKK7H5bGk9g6?g_st=com.google.maps.preview.copy"target="_blank"> Dynamic Infotech Solutions, Dhamale Building, near Trimurti Chowk, near BVP, Pune </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!--    <div class="footer-copy">-->
+    <!--        © 2024 Your Company Name. All rights reserved.-->
+    <!--    </div>-->
+
+    <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=100083311902162" class="social-icon__link"><i class="fab fa-facebook-f"></i></a>
+
+        <a href="https://www.instagram.com/dynamicclassespune/" class="social-icon__link"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/dynamic-classes/?viewAsMember=true" class="social-icon__link"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+</footer>
+<div class ="para">
+    <p style="margin:10px">&copy;2024 Dynamic Infotech | All Rights Reserved</p>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to shift gallery items
+        function shiftGalleryItems() {
+            let carouselInner = document.querySelector('.carousel-inner');
+            let firstChild = carouselInner.firstElementChild;
+            carouselInner.removeChild(firstChild);
+            carouselInner.appendChild(firstChild);
+
+            // Update the active class
+            let items = carouselInner.getElementsByClassName('carousel-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('active');
+            }
+            items[0].classList.add('active');
+        }
+
+        // Set interval to call the shiftGalleryItems function every 10 seconds
+        setInterval(shiftGalleryItems, 10000);
+
+        let eventItems = /*[[${eventItems}]]*/ [];
+    let isHovered = false;
+
+    function updateEventItems() {
+        if (isHovered) {
+            return;
+        }
+
+        let container = document.getElementById('eventContainer');
+
+        // Remove existing content
+        container.querySelector('.card-img-top').src = '';
+
+        // Get current item
+        let currentItem = eventItems.shift();
+
+        // If no items left, refill from the beginning
+        if (!currentItem) {
+            eventItems = /*[[${eventItems}]]*/ [];
+            currentItem = eventItems.shift();
+        }
+
+        // Fill container with new item
+        if (currentItem) {
+            container.querySelector('.card-img-top').src = currentItem.imageUrl;
+        }
+    }
+
+    // Update event items every 10 seconds
+    setInterval(updateEventItems, 10000);
+
+    // Call the function to update event items on page load
+    updateEventItems();
+
+    // Event listeners to set hover state
+    let container = document.getElementById('eventContainer');
+    container.addEventListener('mouseenter', () => isHovered = true);
+    container.addEventListener('mouseleave', () => isHovered = false);
+        // Function to shift testimonial items
+        let testimonialItems = /*[[${testimonialItems}]]*/ []; // Assuming this is your list of testimonial items
+        let currentIndex = 0; // Track the current index of the testimonial
+        
+        const testimonialContainer = document.getElementById('testimonialContainer');
+
+        // Function to update testimonial items
+        function updateTestimonials() {
+            // Remove existing items
+            while (testimonialContainer.firstChild) {
+                testimonialContainer.removeChild(testimonialContainer.firstChild);
+            }
+
+            // Get the current testimonial item
+            let item = testimonialItems[currentIndex];
+            let testimonialItem = document.createElement('div');
+            testimonialItem.classList.add('testimonial-item', 'slide-in');
+            testimonialItem.innerHTML = `
+                <div class="card">
+                    <div class="testimonial-image">
+                        <img src="${item.imageUrl}" class="rounded-circle img-fluid" alt="Testimonial Image">
+                    </div>
+                    <div class="testimonial-text mt-3">
+                        <p style="font-style: italic; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                            "${item.text}"
+                        </p>
+                    </div>
+                    <div class="testimonial-details">
+                        <p>${item.domain}</p>
+                        <p>${item.name}</p>
+                    </div>
+                </div>
+            `;
+            testimonialContainer.appendChild(testimonialItem);
+
+            // Increment the current index and reset if it goes beyond the array length
+            currentIndex = (currentIndex + 1) % testimonialItems.length;
+        }
+
+        // Initial call to populate the first testimonial item
+        updateTestimonials();
+
+        // Interval to update testimonial items every 5 seconds
+        setInterval(updateTestimonials, 5000);
+
+     // New code for handling state, district, city selection, and pincode population
+        const stateSelect = document.getElementById('state');
+        const districtSelect = document.getElementById('district');
+        const citySelect = document.getElementById('city');
+        const pincodeInput = document.getElementById('pincode');
+
+        const data = {
+            "Maharashtra": {
+                "Mumbai": {
+                    "Mumbai": "400001",
+                    "Navi Mumbai": "400703"
+                },
+                "Pune": {
+                    "Pune": "411001",
+                    "Pimpri-Chinchwad": "411044"
+                }
+            },
+            "Gujarat": {
+                "Ahmedabad": {
+                    "Ahmedabad": "380001",
+                    "Gandhinagar": "382010"
+                },
+                "Surat": {
+                    "Surat": "395003",
+                    "Navsari": "396445"
+                }
+            }
+            // Add other states, districts, cities, and pincodes as needed
+        };
+
+        stateSelect.addEventListener('change', function () {
+            const state = stateSelect.value;
+            districtSelect.innerHTML = '<option value="" disabled selected>Choose District</option>';
+            citySelect.innerHTML = '<option value="" disabled selected>Choose City</option>';
+            pincodeInput.value = '';
+
+            if (state in data) {
+                const districts = Object.keys(data[state]);
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        });
+
+        districtSelect.addEventListener('change', function () {
+            const state = stateSelect.value;
+            const district = districtSelect.value;
+            citySelect.innerHTML = '<option value="" disabled selected>Choose City</option>';
+            pincodeInput.value = '';
+
+            if (state in data && district in data[state]) {
+                const cities = Object.keys(data[state][district]);
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
+
+        citySelect.addEventListener('change', function () {
+            const state = stateSelect.value;
+            const district = districtSelect.value;
+            const city = citySelect.value;
+
+            if (state in data && district in data[state] && city in data[state][district]) {
+                pincodeInput.value = data[state][district][city];
+            } else {
+                pincodeInput.value = '';
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+
+
+

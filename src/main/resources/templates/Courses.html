@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>USER MANAGEMENT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href=
+                  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link href=
+                  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          rel="stylesheet">
+    <!-- Bootstrap Bundle with Popper -->
+    <script src=
+                    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif; /* Use Roboto as the primary font */
+        font-weight: 400; /* Regular font weight */
+        line-height: 1.6; /* Improved readability */
+        background-color: #ffffff;
+        color: #333; /* Adjust text color for readability */
+        margin: 0;
+    }
+
+    .marquee {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+    }
+
+    /* Make the top header sticky */
+    .sticky-top {
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Ensure it stays on top of other content */
+    }
+
+    /* Adjust navbar padding for smooth scrolling */
+    .navbar {
+        background: linear-gradient(to right, #6a0dad, #e75480) !important; /* Background gradient */
+        padding: .5rem 1rem;
+        color: white; /* Text color for navbar items */
+    }
+
+    .navbar-brand {
+        color: white !important; /* Color for the brand/logo text */
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important; /* Color for navbar links */
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-height: 300px; /* Adjust the maximum height as needed */
+        overflow: hidden;
+
+    }
+
+    .carousel-inner img {
+        object-fit: cover;
+        height: 100%;
+        max-height: 300px; /* Ensures the images do not exceed the container height */
+        /* Initial scale */
+          /* Smooth transition */
+    }
+
+
+
+    /* Floating effect */
+    .carousel-inner img:hover {
+        transform: scale(1.05); /* Slightly enlarge the image */
+
+    }
+
+
+    .about-section {
+        background-color: #f8f9fa;
+        padding: 40px 20px;
+        text-align: center;
+        margin-top:0px;
+        font-family: 'Montserrat', sans-serif; /* Apply a cool font */
+        font-weight: bold; /* Make the font bold */
+    }
+
+    .about-section img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    /* Styling for What We Offer Section */
+    .course-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .course-item img {
+        height: 200px;
+        width: 400px;
+    }
+
+    .course-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .course-item .card-img-top {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .course-item .card-body {
+        background: linear-gradient(135deg, #808080, #ffffff); /* Gradient background */
+        padding: 1.5rem;
+    }
+
+    .testimonial-item {
+        background: linear-gradient(to right, #6a0dad, #e75480); /* Dark pink background */
+        color: #fff; /* White text */
+        border: 2px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 300px; /* Fixed height */
+        width: 700px;
+        overflow: hidden; /* Hide overflow to contain testimonial items */
+        display: flex; /* Use flexbox for centering */
+        align-items: center; /* Center items vertically */
+        justify-content: center; /* Center items horizontally */
+        text-align: center;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box-shadow for popping effect */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+    }
+
+    .testimonial-item:hover {
+        transform: translateY(-5px); /* Popping effect on hover */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+    }
+
+    .testimonial-item .card {
+        background-color: inherit; /* Inherit background color from container */
+        border: none; /* Remove border */
+        padding: 20px; /* Add padding */
+        text-align: center;
+    }
+
+    .testimonial-image img {
+        margin-top: 10px;
+        width: 150px; /* Adjust image size as needed */
+        height: 150px;
+        border-radius: 50%; /* Ensure round image */
+        margin: 0 auto; /* Center align image */
+    }
+
+    .testimonial-text {
+        margin-top: 10px;
+    }
+
+    .testimonial-details {
+        margin-top: 10px;
+    }
+
+    @keyframes slideInFromRight {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .slide-in {
+        animation: slideInFromRight 1s ease;
+    }
+
+    /* Event Items Section */
+    .event-item {
+        position: relative;
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box-shadow */
+        overflow: hidden; /* Hide overflow to contain children */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+        background: linear-gradient(135deg, #6a0dad, #e75480); /* Gradient background */
+        width: 100%; /* Occupy full width of parent */
+    }
+
+    .event-item:hover {
+        transform: translateY(-5px); /* Popping effect on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+    }
+
+    .event-item .card-img-top {
+        height: auto; /* Adjust height to maintain aspect ratio */
+        width: 100%; /* Occupy full width of parent */
+        object-fit: cover; /* Maintain aspect ratio and cover the entire area */
+    }
+
+    .event-item .card-body {
+        padding: 20px;
+    }
+
+    /* Fading background effect for event items */
+    @keyframes fadeInBackground {
+        0% {
+            background: #6a0dad;
+        }
+        100% {
+            background: #e75480;
+        }
+    }
+
+    .event-item {
+        animation: fadeInBackground 1s ease-in-out;
+    }
+
+    .form-floating-label {
+        position: relative;
+    }
+
+
+    .form-floating-label input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #6a0dad, #e75480); /* Gradient background */
+    }
+
+    .form-floating-label label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        transition: all 0.2s ease-in-out;
+        pointer-events: none;
+        color: #aaa;
+    }
+
+    .form-floating-label input:focus + label,
+    .form-floating-label input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 10px;
+        font-size: 12px;
+        color: #3498db;
+        background: white;
+        padding: 0 5px;
+    }
+
+    .inquiry-form {
+        background-color: #00008b; /* Gradient background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #ffffff; /* White font color */
+        font-weight: bold;
+        margin-left: 20px; /* Shift the form to the right */
+    }
+
+    .footer {
+        position: relative;
+        width: 100%;
+        background: linear-gradient(to right, #6a0dad, #e75480); /* Gradient background */
+        color: #fff;
+        min-height: 100px;
+        padding: 20px 50px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        bottom: 0;
+        width: 100%;
+        flex-direction: column;
+    }
+
+
+
+
+
+    .profile-button {
+        margin-top: 20px;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button i {
+        margin-right: 10px;
+    }
+    .bg-gradient-dark-pink {
+        background: linear-gradient(to right, #6a0dad, #e75480);
+    }
+    .course-item-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px 0;
+            width: 100%;
+            background: #e75480; /* Fading from white to light grey */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adding a subtle shadow */
+        }
+        .course-item-box img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 20px;
+        }
+        .course-item-box .text {
+            flex-grow: 1;
+            font-family: Arial, sans-serif; /* Example of changing font */
+            font-size: 18px; /* Example of changing font size */
+        }
+        .course-item-box .text h3 {
+            font-weight: bold; /* Example of bold text */
+            font-style: italic; /* Example of italic text */
+            color: #333; /* Example of setting a specific color */
+        }
+        .contact-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            background-color: #6a0dad; /* Dark purple color */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+    font-weight: 700; /* Bold font weight */
+}
+    /* Custom dark purple button */
+        .btn-purple {
+            background-color: #6a0dad;
+            border-color: #6a0dad;
+            color: #fff;
+        }
+        .btn-purple:hover {
+            background-color: #510c87;
+            border-color: #510c87;
+        }
+        .btn-purple:focus,
+        .btn-purple.focus {
+            box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.5);
+        }
+    .social-icon,
+
+    .menu {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .social-icon__item,
+    .menu__item {
+      list-style: none;
+    }
+
+    .social-icon__link {
+      font-size: 2rem;
+      color: #fff;
+      margin: 0 10px;
+      display: inline-block;
+      transition: 0.5s;
+    }
+    .social-icon__link:hover {
+      transform: translateY(-10px);
+    }
+
+    .menu__link {
+      font-size: 1.2rem;
+      color: #fff;
+      margin: 0 10px;
+      display: inline-block;
+      transition: 0.5s;
+      text-decoration: none;
+      opacity: 0.75;
+      font-weight: 300;
+    }
+
+    .menu__link:hover {
+      opacity: 1;
+    }
+
+    .footer p {
+      color: #fff;
+      margin: 15px 0 10px 0;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+</style>
+
+
+
+</head>
+<body>
+<div class="container-fluid bg-gradient-dark-pink text-white py-2 d-flex justify-content-between align-items-center sticky-top">
+    <a class="navbar-brand text-white" href="#">
+        <img src="/images/logo.png" alt="Logo" width="150" height="30" class="d-inline-block align-text-top">
+    </a>
+
+    <!-- Start: Submenu Options -->
+    <div class="d-flex">
+        <a class="nav-link text-white me-3" href="/">Home</a>
+        <!-- <a class="nav-link text-white me-3" href="Gallery">Gallery</a>-->
+        <!-- <a class="nav-link text-white me-3" href="OurCentres">Our Centres</a>-->
+        <!-- <a class="nav-link text-white me-3" href="Events">Events</a>-->
+        <a class="nav-link text-white me-3" href="Courses">Courses</a>
+        <a class="nav-link text-white" href="Contact">Contact</a>
+    </div>
+    <!-- End: Submenu Options -->
+
+    <!-- Conditional Button -->
+    <div>
+        <a class="btn btn-outline-light" th:if="${session.username == null}" href="/userlogin" role="button">Login</a>
+        <a class="btn btn-outline-light" th:if="${session.username != null}" th:href="@{/UserDashBoard(userId=${session.userId}, username=${session.username})}" role="button">Dashboard</a>
+        <a class="btn btn-outline-light" th:if="${session.username != null}" href="/logout" role="button">Logout</a>
+    </div>
+</div>
+
+<div class="container mt-5">
+        <h1 class="mb-4">Courses</h1>
+        <div th:each="courseItem : ${courseItems}" class="course-item-box">
+            <img th:src="@{${courseItem.imageUrl}}" alt="Course Image">
+            <div class="text" th:text="${courseItem.text}"></div>
+            <div class="contact-button">
+        <a href="Contact" class="btn btn-purple btn-lg">INQUIRE</a>
+    </div>
+        </div>
+
+</div>
+
+
+<section class="">
+
+    <footer class="footer">
+        <ul class="social-icon">
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-facebook"></ion-icon>
+            </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-twitter"></ion-icon>
+            </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-linkedin"></ion-icon>
+            </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-instagram"></ion-icon>
+            </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="tel:+919860565670">
+                <ion-icon name="call"></ion-icon>
+            </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="mailto:info@example.com">
+                <ion-icon name="mail"></ion-icon>
+            </a></li>
+        </ul>
+        <ul class="menu">
+            <li class="menu__item"><a class="menu__link" href="/">Home</a></li>
+            <li class="menu__item"><a class="menu__link" href="Courses">Courses</a></li>
+            <li class="menu__item"><a class="menu__link" href="Contact">Get In Touch</a></li>
+            <li class="menu__item"><a class="menu__link" href="UserRegistration">Register</a></li>
+            <li class="menu__item"><a class="menu__link" href="/userlogin">Login</a></li>
+
+        </ul>
+        <p>&copy;2024 Dynamic Infotech | All Rights Reserved</p>
+    </footer>
+    <!-- Footer -->
+</section>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
